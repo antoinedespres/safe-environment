@@ -1,0 +1,65 @@
+{
+  "name": "safe-environment",
+  "displayName": "Safe Environment",
+  "description": "Warns before opening .env files to prevent token leaks during livestreams",
+  "version": "1.0.0",
+  "publisher": "antoinedespres",
+  "author": {
+    "name": "Antoine Després"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antoinedespres/safe-environment.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antoinedespres/safe-environment/issues"
+  },
+  "keywords": [
+    "env",
+    "environment",
+    "security",
+    "privacy",
+    "livestream",
+    "streaming",
+    "secrets"
+  ],
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "safeEnv.warningView",
+        "displayName": "Safe Environment Warning",
+        "selector": [
+          {
+            "filenamePattern": "*.env"
+          }
+        ],
+        "priority": "default"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.7.1",
+    "typescript": "^5.3.0"
+  }
+}
