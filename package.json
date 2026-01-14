@@ -2,7 +2,7 @@
   "name": "safe-environment",
   "displayName": "Safe Environment",
   "description": "Warns before opening .env files to prevent token leaks during livestreams",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "publisher": "antoinedespres",
   "author": {
     "name": "Antoine Després"
@@ -36,18 +36,42 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "customEditors": [
+    "commands": [
       {
-        "viewType": "safeEnv.warningView",
-        "displayName": "Safe Environment Warning",
-        "selector": [
-          {
-            "filenamePattern": "*.env"
-          }
-        ],
-        "priority": "default"
+        "command": "safeEnvironment.openSettings",
+        "title": "Safe Environment: Open Settings"
+      },
+      {
+        "command": "safeEnvironment.quickToggle",
+        "title": "Safe Environment: Quick Toggle Patterns"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Safe Environment",
+      "properties": {
+        "safeEnvironment.additionalPatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "markdownDescription": "Additional file patterns to intercept (regex strings). Example: `[\"secret\\\\.yaml$\", \"private\\\\.json$\"]`"
+        },
+        "safeEnvironment.disabledPatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "markdownDescription": "Built-in patterns to disable (regex strings). Example: `[\"\\\\.npmrc$\"]` to allow `.npmrc` files"
+        },
+        "safeEnvironment.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable the Safe Environment extension"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
